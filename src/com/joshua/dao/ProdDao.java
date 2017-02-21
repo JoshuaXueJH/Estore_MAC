@@ -20,4 +20,11 @@ public interface ProdDao {
 	 */
 	List<Prod> findAllProds();
 
+	/**
+	 * 根据ID取prod数据
+	 * @param iD
+	 * @return
+	 */
+	Prod findProdByID(String ID);
+
 }

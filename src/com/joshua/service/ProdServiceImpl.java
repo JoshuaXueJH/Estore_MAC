@@ -21,4 +21,9 @@ public class ProdServiceImpl implements ProdService {
 		return prodDao.findAllProds();
 	}
 
+	@Override
+	public Prod findProdByID(String ID) {
+		return prodDao.findProdByID(ID);
+	}
+
 }

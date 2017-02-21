@@ -13,7 +13,7 @@
 	<table width="100%">
 		<c:forEach items="${requestScope.prodList }" var="prod">
 			<tr>
-				<td width="40%"><img src="${pageContext.request.contextPath }/${prod.imgurl}"></td>
+				<td width="40%"><img src="${pageContext.request.contextPath }/ImgServlet?id=${prod.id}"></td>
 				<td width="40%">品名：${prod.name }<br> 价格：${prod.price }<br>
 					种类：${prod.category }<br> 库存：${prod.pnum }<br>
 				</td>

@@ -3,6 +3,7 @@ package com.joshua.dao;
 import java.util.List;
 
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import com.joshua.domain.Prod;
@@ -29,6 +30,18 @@ public class ProdDaoImpl implements ProdDao {
 		try {
 			QueryRunner runner = new QueryRunner(DaoUtils.getSource());
 			return runner.query(sql, new BeanListHandler<Prod>(Prod.class));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public Prod findProdByID(String ID) {
+		String sql = "select * from products where id=?";
+		try {
+			QueryRunner runner = new QueryRunner(DaoUtils.getSource());
+			return runner.query(sql, new BeanHandler<Prod>(Prod.class), ID);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

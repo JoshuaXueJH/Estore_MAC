@@ -20,4 +20,11 @@ public interface ProdService {
 	 */
 	List<Prod> findAllProds();
 
+	/**
+	 * 根据商品ID查找商品
+	 * @param parameter
+	 * @return
+	 */
+	Prod findProdByID(String ID);
+
 }

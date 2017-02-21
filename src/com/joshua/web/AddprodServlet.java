@@ -76,8 +76,11 @@ public class AddprodServlet extends HttpServlet {
 					String realname = item.getName();
 					String uuidname = UUID.randomUUID().toString() + "_" + realname;
 					String hash = Integer.toHexString(uuidname.hashCode());
-					String upload = this.getServletContext().getRealPath("WEB-INF/upload");
-					String imgurl = "WEB-INF/upload";
+					// String upload =
+					// this.getServletContext().getRealPath("WEB-INF/upload");
+					// String imgurl = "WEB-INF/upload";
+					String upload = "/Users/joshua.xue/Library/apache-tomcat-7.0.73/webapps/upload";
+					String imgurl = upload;
 					for (char c : hash.toCharArray()) {
 						upload += "/" + c;
 						imgurl += "/" + c;
