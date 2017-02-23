@@ -25,6 +25,7 @@ import com.joshua.domain.Prod;
 import com.joshua.factory.BasicFactory;
 import com.joshua.service.ProdService;
 import com.joshua.util.IOUtils;
+import com.joshua.util.PicUtils;
 
 /**
  * Servlet implementation class AddprodServlet
@@ -80,7 +81,7 @@ public class AddprodServlet extends HttpServlet {
 					// this.getServletContext().getRealPath("WEB-INF/upload");
 					// String imgurl = "WEB-INF/upload";
 					String upload = "/Users/joshua.xue/Library/apache-tomcat-7.0.73/webapps/upload";
-					String imgurl = upload;
+					String imgurl = "../upload";
 					for (char c : hash.toCharArray()) {
 						upload += "/" + c;
 						imgurl += "/" + c;
@@ -101,6 +102,9 @@ public class AddprodServlet extends HttpServlet {
 					IOUtils.close(in, out);
 					item.delete();
 
+					// 生成缩略图
+					PicUtils picu = new PicUtils(this.getServletContext().getRealPath(imgurl));
+					picu.resizeByHeight(140);
 				}
 			}
 			// 调用service中方法添加一条商品记录

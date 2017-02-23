@@ -6,12 +6,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Add Product</title>
+<script type="text/javascript">
+	function checkData(){
+		var price = document.getElementsByName("price")[0].value;
+		if(isNaN(price)){
+			alert("单价必须是数字");
+			document.getElementsByName("price")[0].value="";
+			return false;
+		}else if(price<=0){
+			alert("单价不能小于等于0.0");
+			document.getElementsByName("price")[0].value="";
+			return false;
+		}else{
+			return true;
+		}
+	}
+</script>
 </head>
 <body>
 	<h1>添加商品</h1>
 	<hr>
-	<form action="${pageContext.request.contextPath }/AddprodServlet"
-		method="post" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath }/AddprodServlet" method="post" enctype="multipart/form-data" onsubmit="return checkData()">
 		<table>
 			<tr>
 				<td>名称</td>

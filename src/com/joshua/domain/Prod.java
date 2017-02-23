@@ -45,6 +45,10 @@ public class Prod {
 		return imgurl;
 	}
 
+	public String getImgurls() {
+		return imgurl.substring(0, imgurl.lastIndexOf(".")) + "_s" + imgurl.substring(imgurl.lastIndexOf("."));
+	}
+
 	public void setImgurl(String imgurl) {
 		this.imgurl = imgurl;
 	}

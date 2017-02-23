@@ -1,6 +1,7 @@
 package com.joshua.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +13,16 @@ import com.joshua.factory.BasicFactory;
 import com.joshua.service.ProdService;
 
 /**
- * Servlet implementation class ImgServlet
+ * Servlet implementation class ProdInfoServlet
  */
-@WebServlet("/ImgServlet")
-public class ImgServlet extends HttpServlet {
+@WebServlet("/ProdInfoServlet")
+public class ProdInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ImgServlet() {
+	public ProdInfoServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,10 +34,19 @@ public class ImgServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ProdService prodService = BasicFactory.getFactory().getInstance(ProdService.class);
-		Prod prod = prodService.findProdByID(request.getParameter("id"));
 
-		String imgurl = prod.getImgurl();
-		request.getRequestDispatcher(imgurl).forward(request, response);
+		// 根据传来的id获取商品
+		String prod_id = request.getParameter("id");
+		Prod prod = prodService.findProdByID(prod_id);
+
+		// 将商品信息带回页面作展示
+		if (prod == null) {
+			throw new RuntimeException("查找不到该商品");
+		} else {
+			request.setAttribute("prod", prod);
+			request.getRequestDispatcher("prodInfo.jsp").forward(request, response);
+		}
+
 	}
 
 	/**
