@@ -9,6 +9,7 @@ import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import com.joshua.domain.User;
 import com.joshua.util.DaoUtils;
+import com.joshua.util.TranManager;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 
 public class UserDaoImpl implements UserDao {
@@ -18,7 +19,7 @@ public class UserDaoImpl implements UserDao {
 		String sql = "insert into users values(null,?,?,?,?,?,?,?,null)";
 
 		try {
-			QueryRunner runner = new QueryRunner(DaoUtils.getSource());
+			QueryRunner runner = new QueryRunner(TranManager.getSource());
 			runner.update(sql, user.getUsername(), user.getPassword(), user.getNickname(), user.getEmail(),
 					user.getRole(), user.getState(), user.getActivecode());
 		} catch (SQLException e) {
@@ -32,7 +33,7 @@ public class UserDaoImpl implements UserDao {
 	public User findUserByName(String username) {
 		String sql = "select * from users where username=?";
 		try {
-			QueryRunner runner = new QueryRunner(DaoUtils.getSource());
+			QueryRunner runner = new QueryRunner(TranManager.getSource());
 			return runner.query(sql, new BeanHandler<User>(User.class), username);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,7 +45,7 @@ public class UserDaoImpl implements UserDao {
 	public User findUserByActiveCode(String activeCode) {
 		String sql = "select * from users where activecode=?";
 		try {
-			QueryRunner runner = new QueryRunner(DaoUtils.getSource());
+			QueryRunner runner = new QueryRunner(TranManager.getSource());
 			return runner.query(sql, new BeanHandler<User>(User.class), activeCode);
 		} catch (Exception e) {
 			e.printStackTrace();

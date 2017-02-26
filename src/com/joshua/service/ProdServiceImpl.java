@@ -8,22 +8,37 @@ import com.joshua.domain.Prod;
 import com.joshua.factory.BasicFactory;
 
 public class ProdServiceImpl implements ProdService {
-	ProdDao prodDao = BasicFactory.getFactory().getInstance(ProdDao.class);
+	ProdDao prodDao = BasicFactory.getFactory().getDao(ProdDao.class);
 
 	@Override
 	public void addProd(Prod prod) {
-		prod.setId(UUID.randomUUID().toString());
-		prodDao.addProd(prod);
+		try {
+			prod.setId(UUID.randomUUID().toString());
+			prodDao.addProd(prod);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public List<Prod> findAllProds() {
-		return prodDao.findAllProds();
+		try {
+			return prodDao.findAllProds();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
 	public Prod findProdByID(String ID) {
-		return prodDao.findProdByID(ID);
+		try {
+			return prodDao.findProdByID(ID);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 }

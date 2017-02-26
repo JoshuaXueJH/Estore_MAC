@@ -32,7 +32,7 @@ public class ActiveServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		UserService service = BasicFactory.getFactory().getInstance(UserService.class);
+		UserService service = BasicFactory.getFactory().getService(UserService.class);
 		// 获取激活码
 		String activeCode = request.getParameter("activecode");
 		// 调用service中的方法激活

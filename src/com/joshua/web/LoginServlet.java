@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		UserService userService = BasicFactory.getFactory().getInstance(UserService.class);
+		UserService userService = BasicFactory.getFactory().getService(UserService.class);
 		// 验证用户名密码
 		String username = request.getParameter("username");
 		String password = MD5Utils.md5(request.getParameter("password"));

@@ -40,7 +40,7 @@ public class RegistServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			// 获取userService
-			UserService service = BasicFactory.getFactory().getInstance(UserService.class);
+			UserService service = BasicFactory.getFactory().getService(UserService.class);
 
 			// 1.校验验证码
 			String valistr = request.getParameter("valistr");

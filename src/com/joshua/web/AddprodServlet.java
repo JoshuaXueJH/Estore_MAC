@@ -48,7 +48,7 @@ public class AddprodServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProdService prodService = BasicFactory.getFactory().getInstance(ProdService.class);
+		ProdService prodService = BasicFactory.getFactory().getService(ProdService.class);
 		try {
 			String encode = this.getServletContext().getInitParameter("encode");
 			Map<String, String> paraMap = new HashMap<String, String>();

@@ -2,7 +2,7 @@ package com.joshua.dao;
 
 import com.joshua.domain.User;
 
-public interface UserDao {
+public interface UserDao extends Dao{
 
 	/**
 	 * 向数据库中添加时用户

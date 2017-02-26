@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.joshua.domain.Prod;
 
-public interface ProdService {
+public interface ProdService extends Service{
 
 	/**
 	 * 添加商品功能

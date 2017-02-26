@@ -15,7 +15,7 @@ import com.joshua.domain.User;
 import com.joshua.factory.BasicFactory;
 
 public class UserServiceImpl implements UserService {
-	UserDao userDao = BasicFactory.getFactory().getInstance(UserDao.class);
+	UserDao userDao = BasicFactory.getFactory().getDao(UserDao.class);
 
 	@Override
 	public void regist(User user) {

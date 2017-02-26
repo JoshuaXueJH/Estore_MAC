@@ -32,4 +32,7 @@
     <error-code>404</error-code>
     <location>/error/404.jsp</location>
   </error-page>
+  <listener>
+    <listener-class>com.joshua.listener.SessionListener</listener-class>
+  </listener>
 </web-app>

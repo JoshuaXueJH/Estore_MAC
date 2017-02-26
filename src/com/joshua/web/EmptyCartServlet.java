@@ -1,6 +1,7 @@
 package com.joshua.web;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.joshua.domain.Prod;
-import com.joshua.factory.BasicFactory;
-import com.joshua.service.ProdService;
 
 /**
- * Servlet implementation class ProdInfoServlet
+ * Servlet implementation class EmptyCartServlet
  */
-@WebServlet("/ProdInfoServlet")
-public class ProdInfoServlet extends HttpServlet {
+@WebServlet("/EmptyCartServlet")
+public class EmptyCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProdInfoServlet() {
+	public EmptyCartServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,20 +32,9 @@ public class ProdInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProdService prodService = BasicFactory.getFactory().getService(ProdService.class);
-
-		// 根据传来的id获取商品
-		String prod_id = request.getParameter("id");
-		Prod prod = prodService.findProdByID(prod_id);
-
-		// 将商品信息带回页面作展示
-		if (prod == null) {
-			throw new RuntimeException("查找不到该商品");
-		} else {
-			request.setAttribute("prod", prod);
-			request.getRequestDispatcher("prodInfo.jsp").forward(request, response);
-		}
-
+		Map<Prod, Integer> cartMap = (Map<Prod, Integer>) request.getSession().getAttribute("cartMap");
+		cartMap.clear();
+		response.sendRedirect("cart.jsp");
 	}
 
 	/**

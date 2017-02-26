@@ -2,7 +2,7 @@ package com.joshua.service;
 
 import com.joshua.domain.User;
 
-public interface UserService {
+public interface UserService extends Service {
 
 	/**
 	 * 注册用户
@@ -13,6 +13,7 @@ public interface UserService {
 
 	/**
 	 * 激活用户
+	 * 
 	 * @param activeCode
 	 * @return
 	 */
@@ -20,6 +21,7 @@ public interface UserService {
 
 	/**
 	 * 用户登录
+	 * 
 	 * @param username
 	 * @param password
 	 * @return

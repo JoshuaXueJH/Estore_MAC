@@ -1,6 +1,7 @@
 package com.joshua.web;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +14,16 @@ import com.joshua.factory.BasicFactory;
 import com.joshua.service.ProdService;
 
 /**
- * Servlet implementation class ProdInfoServlet
+ * Servlet implementation class ChangeCartNumServlet
  */
-@WebServlet("/ProdInfoServlet")
-public class ProdInfoServlet extends HttpServlet {
+@WebServlet("/ChangeCartNumServlet")
+public class ChangeCartNumServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProdInfoServlet() {
+	public ChangeCartNumServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -35,18 +36,17 @@ public class ProdInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		ProdService prodService = BasicFactory.getFactory().getService(ProdService.class);
 
-		// 根据传来的id获取商品
-		String prod_id = request.getParameter("id");
-		Prod prod = prodService.findProdByID(prod_id);
-
-		// 将商品信息带回页面作展示
+		// 获取cartMap，根据id查找prod
+		Map<Prod, Integer> cartMap = (Map<Prod, Integer>) request.getSession().getAttribute("cartMap");
+		Prod prod = prodService.findProdByID(request.getParameter("id"));
+		// 将购买商品的新数量添加到cartMap
 		if (prod == null) {
-			throw new RuntimeException("查找不到该商品");
+			throw new RuntimeException("未找到该商品！");
 		} else {
-			request.setAttribute("prod", prod);
-			request.getRequestDispatcher("prodInfo.jsp").forward(request, response);
+			cartMap.put(prod, Integer.parseInt(request.getParameter("buyNum")));
 		}
-
+		// 重定向到cart.jsp
+		response.sendRedirect("cart.jsp");
 	}
 
 	/**

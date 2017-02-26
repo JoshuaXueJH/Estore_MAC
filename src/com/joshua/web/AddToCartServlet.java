@@ -1,6 +1,7 @@
 package com.joshua.web;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +14,16 @@ import com.joshua.factory.BasicFactory;
 import com.joshua.service.ProdService;
 
 /**
- * Servlet implementation class ProdInfoServlet
+ * Servlet implementation class AddToCartServlet
  */
-@WebServlet("/ProdInfoServlet")
-public class ProdInfoServlet extends HttpServlet {
+@WebServlet("/AddToCartServlet")
+public class AddToCartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ProdInfoServlet() {
+	public AddToCartServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -33,20 +34,19 @@ public class ProdInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProdService prodService = BasicFactory.getFactory().getService(ProdService.class);
+		ProdService prodService = BasicFactory.getFactory().getService (ProdService.class);
 
-		// 根据传来的id获取商品
-		String prod_id = request.getParameter("id");
-		Prod prod = prodService.findProdByID(prod_id);
-
-		// 将商品信息带回页面作展示
+		// 根据id查找要添加到购物车的商品
+		Prod prod = prodService.findProdByID(request.getParameter("id"));
+		// 将查找到的商品添加到购物车
+		Map<Prod, Integer> cartMap = (Map<Prod, Integer>) request.getSession().getAttribute("cartMap");
 		if (prod == null) {
-			throw new RuntimeException("查找不到该商品");
+			throw new RuntimeException("无法查找到此商品，添加到购物车失败");
 		} else {
-			request.setAttribute("prod", prod);
-			request.getRequestDispatcher("prodInfo.jsp").forward(request, response);
+			cartMap.put(prod, cartMap.containsKey(prod) ? cartMap.get(prod) + 1 : 1);
 		}
-
+		// 页面重定向
+		response.sendRedirect("cart.jsp");
 	}
 
 	/**
@@ -55,7 +55,6 @@ public class ProdInfoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -48,7 +48,7 @@ public class AutoLoginFilter implements Filter {
 				String s = URLDecoder.decode(cookie.getValue(), "utf-8");
 				String username = s.split(":")[0];
 				String password = s.split(":")[1];
-				UserService userService = BasicFactory.getFactory().getInstance(UserService.class);
+				UserService userService = BasicFactory.getFactory().getService(UserService.class);
 				User user = userService.login(username, password);
 				if (user != null) {
 					request.getSession().setAttribute("user", user);
