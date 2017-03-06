@@ -59,25 +59,35 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User activate(String activeCode) {
-		User user = userDao.findUserByActiveCode(activeCode);
-		if (user == null) {
-			throw new RuntimeException("用户激活码不正确");
+		try {
+			User user = userDao.findUserByActiveCode(activeCode);
+			if (user == null) {
+				throw new RuntimeException("用户激活码不正确");
+			}
+			if (user.getState() == 1) {
+				throw new RuntimeException("用户已激活，请不要重复激活");
+			}
+			if ((System.currentTimeMillis() - user.getUpdatetime().getTime()) >= 24 * 60 * 60 * 1000) {
+				userDao.deleteUserById(user.getId());
+				throw new RuntimeException("激活码超时，此用户作废，请重新注册用户");
+			}
+			userDao.updateUserStatus(user.getId());
+			user.setState(1);
+			return user;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
 		}
-		if (user.getState() == 1) {
-			throw new RuntimeException("用户已激活，请不要重复激活");
-		}
-		if ((System.currentTimeMillis() - user.getUpdatetime().getTime()) >= 24 * 60 * 60 * 1000) {
-			userDao.deleteUserById(user.getId());
-			throw new RuntimeException("激活码超时，此用户作废，请重新注册用户");
-		}
-		userDao.updateUserStatus(user.getId());
-		user.setState(1);
-		return user;
 	}
 
 	@Override
 	public User login(String username, String password) {
-		return userDao.findUserByNameAndPsw(username, password);
+		try {
+			return userDao.findUserByNameAndPsw(username, password);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
 	}
 
 }

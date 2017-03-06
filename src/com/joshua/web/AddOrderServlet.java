@@ -58,7 +58,7 @@ public class AddOrderServlet extends HttpServlet {
 				// 计算订单价格，向orderitem表中添加信息
 				OrderItem orderItem = new OrderItem();
 				orderItem.setOrder_id(order.getId());
-				orderItem.setProd_id(entry.getKey().getId());
+				orderItem.setProduct_id(entry.getKey().getId());
 				orderItem.setBuynum(entry.getValue());
 				list.add(orderItem);
 				money += entry.getKey().getPrice() * entry.getValue();

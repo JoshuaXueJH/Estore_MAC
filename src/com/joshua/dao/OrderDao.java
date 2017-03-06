@@ -1,6 +1,7 @@
 package com.joshua.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.joshua.domain.Order;
 import com.joshua.domain.OrderItem;
@@ -22,5 +23,35 @@ public interface OrderDao extends Dao {
 	 * @throws SQLException 
 	 */
 	void addOrderItem(OrderItem item) throws SQLException;
+
+	/**
+	 * 根据用户id查找相对应订单orders
+	 * @param id
+	 * @return
+	 * @throws SQLException 
+	 */
+	List<Order> findOrdersByUserID(int id) throws SQLException;
+
+	/**
+	 * 根绝order id查找对应的orderitems
+	 * @param id
+	 * @return
+	 * @throws SQLException 
+	 */
+	List<OrderItem> findOrderItemByOrderID(String id) throws SQLException;
+
+	/**
+	 * 根据订单id删除订单项
+	 * @param orderID
+	 * @throws SQLException 
+	 */
+	void delOrderItemByOrderID(String orderID) throws SQLException;
+
+	/**
+	 * 根据订单id删除订单
+	 * @param orderID
+	 * @throws SQLException 
+	 */
+	void delOderByOrderID(String orderID) throws SQLException;
 
 }

@@ -37,13 +37,19 @@ public class ProdDaoImpl implements ProdDao {
 
 	@Override
 	public void delPnum(String prod_id, int buynum) throws SQLException {
-
 		String sql = "update products set pnum=pnum-? where id=? and pnum-?>=0";
 		QueryRunner runner = new QueryRunner(TranManager.getSource());
 		int count = runner.update(sql, buynum, prod_id, buynum);
 		if (count <= 0) {
 			throw new RuntimeException("商品库存不足");
 		}
+	}
+
+	@Override
+	public void addPnum(String product_id, int buynum) throws SQLException {
+		String sql = "update products set pnum=pnum+? where id=?";
+		QueryRunner runner = new QueryRunner(TranManager.getSource());
+		runner.update(sql, buynum, product_id);
 	}
 
 }

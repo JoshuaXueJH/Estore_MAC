@@ -42,4 +42,12 @@ public interface ProdDao extends Dao {
 	 */
 	void delPnum(String prod_id, int buynum) throws SQLException;
 
+	/**
+	 * 根据产品id未产品增加数量
+	 * @param product_id
+	 * @param buynum
+	 * @throws SQLException 
+	 */
+	void addPnum(String product_id, int buynum) throws SQLException;
+
 }
