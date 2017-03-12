@@ -28,4 +28,11 @@ public interface UserService extends Service {
 	 */
 	User login(String username, String password);
 
+	/**
+	 * 判断用户名是否存在，存在返回true，不存在返回false
+	 * @param username
+	 * @return
+	 */
+	boolean hasName(String username);
+
 }

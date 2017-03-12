@@ -5,13 +5,13 @@ import java.sql.SQLException;
 import com.joshua.domain.OrderListForm;
 import com.joshua.domain.User;
 
-public interface UserDao extends Dao{
+public interface UserDao extends Dao {
 
 	/**
 	 * 向数据库中添加时用户
 	 * 
 	 * @param user
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	void addUser(User user) throws SQLException;
 
@@ -20,47 +20,61 @@ public interface UserDao extends Dao{
 	 * 
 	 * @param username
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	User findUserByName(String username) throws SQLException;
 
 	/**
 	 * 根据激活码查找用户
+	 * 
 	 * @param activeCode
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	User findUserByActiveCode(String activeCode) throws SQLException;
 
 	/**
 	 * 根据用户id删除用户
+	 * 
 	 * @param id
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	void deleteUserById(int id) throws SQLException;
 
 	/**
 	 * 将用户的state状态更改为1
+	 * 
 	 * @param id
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	void updateUserStatus(int id) throws SQLException;
 
 	/**
 	 * 根据用户名和密码查找用户
+	 * 
 	 * @param username
 	 * @param password
 	 * @return
-	 * @throws SQLException 
+	 * @throws SQLException
 	 */
 	User findUserByNameAndPsw(String username, String password) throws SQLException;
 
 	/**
 	 * 根据用户id查找用户
+	 * 
 	 * @param id
+	 * @return
+	 * @throws SQLException
+	 */
+	User findUserByID(int id) throws SQLException;
+
+	/**
+	 * 判断用户名是否存在，存在返回true，不存在返回false
+	 * 
+	 * @param username
 	 * @return
 	 * @throws SQLException 
 	 */
-	User findUserByID(int id) throws SQLException;
+	Object hasUserName(String username) throws SQLException;
 
 }

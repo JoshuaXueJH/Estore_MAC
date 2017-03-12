@@ -65,4 +65,11 @@ public class UserDaoImpl implements UserDao {
 		return runner.query(sql, new BeanHandler<User>(User.class), id);
 	}
 
+	@Override
+	public Object hasUserName(String username) throws SQLException {
+		String sql = "select * from users where username=?";
+		QueryRunner runner = new QueryRunner(TranManager.getSource());
+		return runner.query(sql, new BeanHandler<User>(User.class), username);
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.joshua.annotation.Tran;
 import com.joshua.domain.Order;
 import com.joshua.domain.OrderListForm;
+import com.joshua.domain.SaleListForm;
 
 public interface OrderService extends Service{
 
@@ -28,5 +29,25 @@ public interface OrderService extends Service{
 	 */
 	@Tran
 	void deleteOrderByID(String orderID);
+
+	/**
+	 * 根据订单id查找订单
+	 * @param p2_Order
+	 * @return
+	 */
+	Order findOrderById(String p2_Order);
+
+	/**
+	 * 修改订单的支付状态
+	 * @param r6_Order
+	 * @param i
+	 */
+	void changePayState(String r6_Order, int i);
+
+	/**
+	 * 返回销售榜单列表
+	 * @return
+	 */
+	List<SaleListForm> saleList();
 
 }

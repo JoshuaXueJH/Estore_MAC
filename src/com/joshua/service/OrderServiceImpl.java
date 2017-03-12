@@ -1,5 +1,6 @@
 package com.joshua.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import com.joshua.domain.Order;
 import com.joshua.domain.OrderItem;
 import com.joshua.domain.OrderListForm;
 import com.joshua.domain.Prod;
+import com.joshua.domain.SaleListForm;
 import com.joshua.factory.BasicFactory;
 
 public class OrderServiceImpl implements OrderService {
@@ -68,6 +70,36 @@ public class OrderServiceImpl implements OrderService {
 			}
 			orderDao.delOrderItemByOrderID(orderID);
 			orderDao.delOderByOrderID(orderID);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public Order findOrderById(String p2_Order) {
+		try {
+			return orderDao.findOrderByID(p2_Order);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public void changePayState(String r6_Order, int i) {
+		try {
+			orderDao.changePayState(r6_Order, i);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public List<SaleListForm> saleList() {
+		try {
+			return orderDao.saleList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

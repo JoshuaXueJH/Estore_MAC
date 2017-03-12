@@ -20,9 +20,9 @@
 			<c:if test="${orders.paystate==1 }">
 				<font color="blue">已支付</font>
 			</c:if>
-			<font color="red">未支付<a
-				href="${pageContext.request.contextPath }">支付</a>&nbsp<a
-				href="${pageContext.request.contextPath }/DelOrderServlet?id=${orders.id}">删除订单</a>
+			<font color="red">未支付
+				<a href="${pageContext.request.contextPath }/pay.jsp?id=${orders.id}&money=${orders.money}">支付</a> &nbsp
+				<a href="${pageContext.request.contextPath }/DelOrderServlet?id=${orders.id}">删除订单</a>
 			</font><br> 
 			订单时间：${orders.ordertime }
 			<table style="width:100%">

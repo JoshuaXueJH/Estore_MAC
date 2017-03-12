@@ -90,4 +90,14 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	@Override
+	public boolean hasName(String username) {
+		try {
+			return userDao.hasUserName(username)!=null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);
+		}
+	}
+
 }

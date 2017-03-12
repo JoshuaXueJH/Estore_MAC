@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>regsit</title>
+<script type="text/javascript" src="js/jquery-1.4.2.js"></script>
 <script type="text/javascript">
 	
 	function changeImg(img) {
@@ -48,6 +49,21 @@
 			return false;
 		}
 		return true;
+	}
+	
+	window.onload=function(){
+		$("input[type='text'][name='username']").blur(function(){
+			var username=$(this).val();
+			//alert(username);
+			$.get("ValiNameServlet",{username:username},function(data){
+  				var json = eval("("+data+")");
+  				if(json.stat==1){
+  					$("#username_msg").html("<font color='red'>"+json.msg+"</font>");
+  				}else if(json.stat==0){
+  					$("#username_msg").html("<font color='green'>"+json.msg+"</font>");
+  				}
+  			});
+		});
 	}
 </script>
 </head>
